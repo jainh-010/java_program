@@ -10,7 +10,9 @@ public class test {
 	 Scanner in = new Scanner(System.in);
 
 	test test = new test();
-	try {
+	
+	try 
+      {
 	Class.forName("org.postgresql.Driver");
 	connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/test","postgres", "123");
 	int choice;
@@ -28,7 +30,10 @@ public class test {
 	break;
 	}
 	}
+	
 	catch (Exception e) {e.printStackTrace();}
+	
+		
 	finally{
 		System.out.println("Connection closed.");
 		connection.close();
