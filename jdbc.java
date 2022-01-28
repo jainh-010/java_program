@@ -23,7 +23,7 @@ public class test {
 	test.select();
 	choice = in.nextInt();
 	switch(choice) {
-	case 1 : test.insert(19, "l","Nil");
+	case 1 : test.insert();
 	break;
 	case 2 : test.update();
 	break;
