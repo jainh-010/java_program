@@ -4,23 +4,26 @@ import java.sql.*;
 
 public class test {
 	
-	private static Connection connection = null;
+	 static Connection connection;
+	static String url = "jdbc:postgresql://localhost:5432/test";
+	 static String user = "postgres";
+	static String password="123";
+	
+	private static Scanner in = new Scanner(System.in);
 	
 	public static void main(String[] args) throws SQLException {
-	 Scanner in = new Scanner(System.in);
-
+	 
 	test test = new test();
-	
-	try 
-      {
+	try {
 	Class.forName("org.postgresql.Driver");
-	connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/test","postgres", "123");
+	 connection = DriverManager.getConnection(url,user,password);
+	//connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/test","postgres", "123");
 	int choice;
 	System.out.println("Enter Choice: \n 1. Insert \n 2. Update  \n 3. Delete");
-	choice = in.nextInt();
 	test.select();
+	choice = in.nextInt();
 	switch(choice) {
-	case 1 : test.insert();
+	case 1 : test.insert(19, "l","Nil");
 	break;
 	case 2 : test.update();
 	break;
@@ -30,9 +33,9 @@ public class test {
 	break;
 	}
 	}
-	
-	catch (Exception e) {e.printStackTrace();}
-	
+	//catch (Exception e) {e.printStackTrace();}
+	catch (ClassNotFoundException Cs) {System.out.println("Class not found");}
+	catch (NullPointerException e) {System.out.println("Null");}
 		
 	finally{
 		System.out.println("Connection closed.");
@@ -52,52 +55,51 @@ public class test {
 			String  name = rs.getString("test_name");
 			String address = rs.getString("address");
 			System.out.println(id +"\t"+ name +"\t"+address );
-		}
-			
+		}		
 		 
 	}
 		}
 	
-	public void insert() throws SQLException {
-		Scanner in = new Scanner(System.in);
+	public int insert(int Id ,String Name ,String City) throws SQLException {
+		
 		String sql = "insert into test_table values(?,?,?) ";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		System.out.println("Enter id");
-		preparedStatement.setInt(1,in.nextInt());
-		System.out.println("Enter name:");
-		preparedStatement.setString(2, in.next());
-		System.out.println("Enter City: ");
-		preparedStatement.setString(3, in.next());
-		preparedStatement.executeUpdate();
-		System.out.println("Query insterted successfully.");
+		//System.out.println("Enter id");
+		preparedStatement.setInt(1,Id);
+		//System.out.println("Enter name:");
+		preparedStatement.setString(2, Name);
+		//System.out.println("Enter City: ");
+		preparedStatement.setString(3, City);
+		int s= preparedStatement.executeUpdate();
 	
-		in.close();
+	
 		select();
+		return s;
 	}
 	
 	public void update() throws SQLException {
-		Scanner in = new Scanner(System.in);
+		
 		String sql = "update test_table set test_name =? where Id=?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		System.out.println("Enter name");
-		preparedStatement.setString(1,in.nextLine());
 		System.out.println("Enter id");
 		preparedStatement.setInt(2,in.nextInt());
+		System.out.println("Enter name");
+		preparedStatement.setString(1,in.next());
 		preparedStatement.executeUpdate();
 		
-		in.close();
+	
 		select();
 		System.out.println("Updated");
 	}
 		
 	public void delete() throws SQLException{
-		Scanner in = new Scanner(System.in);
-		String sql = "delete from test_table where id= ? ";
+	
+		String sql = "delete from test_table where id= ?  ";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1,in.nextInt());
-				preparedStatement.executeUpdate();		
-				in.close();
+				preparedStatement.executeUpdate();	
+
 				select();
 				System.out.println("Deleted");
 	}
