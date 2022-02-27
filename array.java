@@ -1,3 +1,5 @@
+//Program for java array demo
+
 import java.util.Scanner;
 
 public class array {
