@@ -1,10 +1,9 @@
-//Program for java array demo
+//Program For JAVA Array Demo
 
 import java.util.Scanner;
 
 public class array {
-	public static void main (String []  args )
-{
+	public static void main (String []  args ){
 	Scanner sc = new Scanner(System.in);
 	int a[] = new int[20];
 	int temp , element;
@@ -15,12 +14,11 @@ public class array {
 	a[i] = sc.nextInt();
 	
 	for(int i =0; i<15; i++){
-for(int j=i+1; j<15; j++){
-
-	if(a[i] < a[j] ){
-	temp = a[i];
-	a[i] = a[j];
-	a[j] = temp;
+	   for(int j=i+1; j<15; j++){
+	      if(a[i] < a[j] ){
+		temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
 }
 }
 }	

@@ -1,3 +1,4 @@
+//Pgrogram to perform JDBC connection in JAVA
 package com.test;
 
 import java.util.Scanner;
